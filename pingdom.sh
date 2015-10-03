@@ -4,7 +4,10 @@
 /usr/bin/wget https://www.pingdom.com/rss/probe_servers.xml -O /root/probe_servers.xml -o /dev/null
 /bin/cat /root/probe_servers.xml | grep IP | sed -e 's/.*IP: //g' | sed -e 's/; Host.*//g' | grep -v IP > /root/pingdom_ips
 # Remove existing file
-/bin/rm /root/pingdom_rules.sh
+if [ -f /root/pingdom_rules.sh ]
+	then
+		/bin/rm /root/pingdom_rules.sh
+fi
 # Loop over IPs
 for ip in `cat /root/pingdom_ips`
 	do
